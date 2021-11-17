@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src=jquery.maskedinput.min.js></script>
+</style>
+<script>
+  $(function(){
+    $("#phone").mask("8(999) 999-9999");
+  });
+  </script>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+input[type=password], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+</style>
+
+</head>
+<body>
+
+
+<div class="container">
+  <form action="/admin/add_adm_user" method="POST">
+
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">Логин</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="login" name="login" placeholder="Логин">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="fname">Пароль</label>
+      </div>
+      <div class="col-75">
+        <input type="password" id="password" name="password" placeholder="Пароль">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="fname">Повторить пароль</label>
+      </div>
+      <div class="col-75">
+        <input type="password" id="password2" name="password2" placeholder="Пароль">
+      </div>
+    </div>
+    
+
+    <div class="row">
+      <div class="col-25">
+        <label for="country">Роль</label>
+      </div>
+      <div class="col-75">
+        <select id="role" name="role">
+          <option value="True">Администратор</option>
+          <option value="False">Редактор</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <input type="submit" value="Записать">
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
+
+
+

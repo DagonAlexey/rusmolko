@@ -1,0 +1,172 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.0
+-- Dumped by pg_dump version 14.0
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: adm_users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.adm_users (
+    id integer NOT NULL,
+    login character varying(30),
+    password character varying(200),
+    admin boolean NOT NULL
+);
+
+
+ALTER TABLE public.adm_users OWNER TO postgres;
+
+--
+-- Name: adm_users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.adm_users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.adm_users_id_seq OWNER TO postgres;
+
+--
+-- Name: adm_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.adm_users_id_seq OWNED BY public.adm_users.id;
+
+
+--
+-- Name: list_users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.list_users (
+    id integer NOT NULL,
+    f character varying(50),
+    i character varying(50),
+    o character varying(50),
+    birthdate date,
+    email character varying(50),
+    telephone character varying(20)
+);
+
+
+ALTER TABLE public.list_users OWNER TO postgres;
+
+--
+-- Name: list_users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.list_users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.list_users_id_seq OWNER TO postgres;
+
+--
+-- Name: list_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.list_users_id_seq OWNED BY public.list_users.id;
+
+
+--
+-- Name: adm_users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.adm_users ALTER COLUMN id SET DEFAULT nextval('public.adm_users_id_seq'::regclass);
+
+
+--
+-- Name: list_users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.list_users ALTER COLUMN id SET DEFAULT nextval('public.list_users_id_seq'::regclass);
+
+
+--
+-- Data for Name: adm_users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.adm_users (id, login, password, admin) FROM stdin;
+4	asd	pbkdf2:sha256:260000$I90CeJQ4QZFHep1y$c0d155c52705a3437578d0466abf0bfe26de2fad0cecaaa53030e79cabbf5f7a	t
+7	admin	pbkdf2:sha256:260000$3lvKfbj5Jitl4naS$f0a730dbfe126427e44ed6f0c3abe946117dca09fb010ded11032b1f367aa7e3	t
+8	user	pbkdf2:sha256:260000$uajBJY8kJSvgb4Vx$fdc7c5a2c44362a6b62fef1e1ab4bc20c68d76040b33a70faadbcccb8a531867	f
+\.
+
+
+--
+-- Data for Name: list_users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.list_users (id, f, i, o, birthdate, email, telephone) FROM stdin;
+15	Родионов	Иосиф	Улебович	2005-10-13	715qy08@gmail.com	006(230)983-95-68
+16	Борисов	Ким	Робертович	2006-01-09	vubx0t@mail.ru	73(72)074-83-33
+18	Никитин	Мартын	Святославович	2012-07-11	gq@yandex.ru	830(1371)203-54-06
+27	Васильев	Константин	Львович	1970-03-12	asdasd@asd.ru	8(111) 111-1111
+14	Зайцев	Семен	Владиславович	2002-07-22	o0my@gmail.com	8(047) 875-6858
+12	Наумов	Алексей	Данилович	2000-09-25	93@outlook.com	8(059) 931-6860
+31	Наумов	Семен	Данилович	2000-12-21	asd@asd.ru	8(799) 961-2150
+32	Жуков	Клим	Александрович	1980-12-12	klxsdlfsldfsldfsdf@mail.ru	8(345) 346-3453
+\.
+
+
+--
+-- Name: adm_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.adm_users_id_seq', 8, true);
+
+
+--
+-- Name: list_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.list_users_id_seq', 33, true);
+
+
+--
+-- Name: adm_users adm_users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.adm_users
+    ADD CONSTRAINT adm_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: list_users list_users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.list_users
+    ADD CONSTRAINT list_users_pkey PRIMARY KEY (id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

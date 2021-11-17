@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang='ru'>
+<head>
+    <meta charset="UTF-8">
+    <title>Администрирования</title>
+    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/menu.css">
+    <link rel="stylesheet" href="/static/button_up.css">
+    <link rel="stylesheet" href="/static/news.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+</head>
+<body>
+    <div class="header" id="myHeader">
+        <div class="header-left"></div>
+        <div class="header-center">
+            <h1>Лендинг для работы с пользователями</h1>
+        </div>
+        <div class="header-rigth"></div>
+    </div>
+    <div class="header-menu" id="my_menu">
+        <ul class="main-menu">
+            <li class="active"><a href="/">Главная</a></li>
+            <li class="menu-children">
+                <a href="#url">Меню 1</a>
+                <ul>
+                    <li><a href="#url">Раздел 1</a></li>
+                    <li><a href="#url">Раздел 2</a></li>
+                    <li class="menu-children">
+                        <a href="#url">Раздел 3</a>
+                        <ul>
+                            <li><a href="#url">Подраздел 1</a></li>
+                            <li><a href="#url">Подраздел 2</a></li>           
+                        </ul>
+                    </li>           
+                </ul>
+            </li>
+            <li><a href="#url">Меню 2</a></li>
+            <li><a href="#url">Меню 3</a></li>
+            <li><a href="#url">Меню 4</a></li>   
+            <li><a href="#url">Меню 5</a></li>   
+            <li><a href="#url">Меню 6</a></li>
+            <li><a href="/logout">Выйти</a></li>
+
+        </ul>
+    </div>
+    <dev class="main">
+        <dev class="main-left">
+            <a href="admin/add_adm_user" class="button5" data-add>Добавить администратора/редактора</a>
+        
+            <table id="myTable">
+                <tr class="header">
+                    <th style="width:10%;">№</th>
+                    <th style="width:50%;">Логин</th>
+                    <th style="width:50%;">Администратор</th>     
+                </tr>
+                
+                {% if len_adm_users > 0%}
+                {% for l in adm_users %}   
+                <tr>
+                    <td>{{ loop.index  }}</td>
+                    <td>{{ l.login}}</td>
+                    <td>{{ l.admin }}</td>
+                  
+                    <td><a href="/admin/del_adm_user/{{l._id}}" class="button5" data-del>Удалить</a></td> 
+                </tr>
+                {% endfor %}
+                {% endif %}
+                
+            
+
+              </table>
+              
+        </dev>
+        <div class="main-right">
+                {% for message in get_flashed_messages() %}
+                <script> alert("{{  message }}")</script>
+                {% endfor %}
+            <div class="services">
+                <a href="admin/add_list_user/0" class="button5" data-add>Добавить новую запись</a>
+                <a href="/download" class="button5" data-excel>Экспорт в excel</a>
+            </div>
+            <div class="services">
+                <table id="myTable">
+                    <tr class="header">
+                        <th style="width:5%;">№</th>
+                        <th style="width:15%;">Фамилия</th>
+                        <th style="width:15%;">Имя</th>
+                        <th style="width:15%;">Отчество</th>
+                        <th style="width:10%;">Возраст</th>
+                        <th style="width:10%;">Дата рождения</th>
+                        <th style="width:15%;">Электронная почта</th>
+                        <th style="width:15%;">Мобильный телефон</th>
+                        
+                    </tr>
+                    
+
+                    {% if len_list_users > 0%}
+                        {% for l in list_users %}   
+                        <tr>
+                            <td>{{ loop.index  }}</td>
+                            <td>{{ l.f}}</td>
+                            <td>{{ l.i }}</td>
+                            <td>{{ l.o }}</td>
+                            <td>{{ l.age }}</td>
+                            <td>{{ l.birthdate }}</td>
+                            <td>{{ l.email }}</td>
+                            <td>{{ l.telephone }}</td>
+                            <td><a href="admin/add_list_user/{{l._id}}" class="button5" data-edit>Изменить</a></td>
+                            <td><a href="admin/del_list_user/{{l._id}}" class="button5" data-del>Удалить</a></td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+
+                  </table>
+            </div>  
+            <!--
+            <div class="services"></div>
+            <div class="services"></div>
+            <div class="services"></div> -->
+            </div>
+        </div>
+        
+    </dev>
+    <dev class="footer"><p></p>Тестовое задание 2021г.©</dev>
+    <a class="back_to_top" title="Наверх">↑</a>
+    <script>
+        (function() {
+            'use strict';
+
+            function trackScroll() {
+                var scrolled = window.pageYOffset;
+                var coords = document.documentElement.clientHeight;
+
+                if (scrolled > coords) {
+                goTopBtn.classList.add('back_to_top-show');
+                }
+                if (scrolled < coords) {
+                goTopBtn.classList.remove('back_to_top-show');
+                }
+            }
+
+            function backToTop() {
+                if (window.pageYOffset > 0) {
+                window.scrollBy(0, -80);
+                setTimeout(backToTop, 0);
+                }
+            }
+
+            var goTopBtn = document.querySelector('.back_to_top');
+
+            window.addEventListener('scroll', trackScroll);
+            goTopBtn.addEventListener('click', backToTop);
+            })();
+
+
+
+
+
+
+        window.onscroll = function() {myFunction()};
+        
+        var header = document.getElementById("my_menu");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+          if (window.pageYOffset >= sticky) {
+            header.classList.add("sticky");
+          } else {
+            header.classList.remove("sticky");
+          }
+        }
+    </script>
+</body>
+</html>
