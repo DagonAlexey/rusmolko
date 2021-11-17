@@ -34,30 +34,31 @@ def login_required(var):
 @app_server.route('/admin')
 @login_required
 def admin():
-    
-    dp = pack.Dbpsycopg2()
-    list_users_select = dp.select('SELECT id, f, i, o, birthdate, email, telephone FROM list_users ORDER BY f')
-    list_users = []
-    for r in list_users_select: list_users.append({'_id':r[0], 'f':r[1], 'i':r[2], 'o':r[3], 'birthdate': r[4].strftime('%d.%m.%Y'), 'age': pack.calculate_age(r[4]), 'email':r[5], 'telephone':r[6]})
-    
-
-    auth_token  = session['user']
-    if request.args.get('message') != None: flash(request.args.get('message'))
-    get_id = None
     try: 
+        dp = pack.Dbpsycopg2()
+        list_users_select = dp.select('SELECT id, f, i, o, birthdate, email, telephone FROM list_users ORDER BY f')
+        list_users = []
+        for r in list_users_select: list_users.append({'_id':r[0], 'f':r[1], 'i':r[2], 'o':r[3], 'birthdate': r[4].strftime('%d.%m.%Y'), 'age': pack.calculate_age(r[4]), 'email':r[5], 'telephone':r[6]})
+        
+
+        auth_token  = session['user']
+        if request.args.get('message') != None: flash(request.args.get('message'))
+        get_id = None
+    
         get_id = pack.decode_auth_token(auth_token, app_server)
+    
+        is_admin = dp.select(f"SELECT admin FROM adm_users WHERE id={get_id};")
+        
+        adm_users_select = []
+        adm_users = []
+        if True in is_admin[0]:
+            adm_users_select = dp.select('SELECT id, login, password, admin FROM adm_users')
+            # print(adm_users_select)
+        for r in adm_users_select: adm_users.append({'_id':r[0], 'login':r[1], 'password':r[2], 'admin':r[3]})
+        return render_template('/admin.html', result='yes', adm_users=adm_users, len_adm_users=len(adm_users), list_users=list_users, len_list_users=len(list_users))
+
     except:
         return redirect(url_for('login', message = 'Авторизация просрочена'))
-    is_admin = dp.select(f"SELECT admin FROM adm_users WHERE id={get_id};")
-    
-    adm_users_select = []
-    adm_users = []
-    if True in is_admin[0]:
-        adm_users_select = dp.select('SELECT id, login, password, admin FROM adm_users')
-        # print(adm_users_select)
-    for r in adm_users_select: adm_users.append({'_id':r[0], 'login':r[1], 'password':r[2], 'admin':r[3]})
-    return render_template('/admin.html', result='yes', adm_users=adm_users, len_adm_users=len(adm_users), list_users=list_users, len_list_users=len(list_users))
-
 
 @app_server.route('/admin/add_adm_user', methods=['POST', 'GET'])
 @login_required
